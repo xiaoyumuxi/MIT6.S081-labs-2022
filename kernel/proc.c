@@ -682,3 +682,14 @@ procdump(void)
     printf("\n");
   }
 }
+
+
+int 
+count_active_processes(void){
+  int cnt = 0;
+  for (struct proc *p = proc; p < &proc[NPROC]; p++) {
+    if (p->state != UNUSED)
+      cnt++;//遍历出来不是UNUSED的proc进程
+  }
+  return cnt;
+}

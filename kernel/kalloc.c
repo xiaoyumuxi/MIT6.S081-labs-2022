@@ -21,7 +21,7 @@ struct run {
 struct {
   struct spinlock lock;
   struct run *freelist;
-} kmem;
+} kmem;//这个是来维护空闲页表的list
 
 void
 kinit()
@@ -79,4 +79,21 @@ kalloc(void)
   if(r)
     memset((char*)r, 5, PGSIZE); // fill with junk
   return (void*)r;
+}
+
+
+int 
+getFreeMem(void){
+  struct run *r;
+  int count = 0;
+
+  acquire(&kmem.lock);
+  r = kmem.freelist;//获取剩余页数
+  while (r) {
+    count++;//计算剩余页数
+    r = r->next;
+  }
+  release(&kmem.lock);
+
+  return count * PGSIZE;//返回对应字节数
 }

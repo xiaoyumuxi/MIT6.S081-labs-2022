@@ -5,6 +5,7 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "sysinfo.h"
 
 uint64
 sys_exit(void)
@@ -97,5 +98,23 @@ sys_trace(void){
   int bitcode;
   argint(0,&bitcode);
   myproc()->bitcode = bitcode;
+  return 0;
+}
+
+uint64
+sys_sysinfo(void)
+{
+  struct sysinfo info;
+  struct proc *p = myproc();
+
+  struct sysinfo *userinfo;
+  argaddr(0, (uint64 *)&userinfo);
+
+  info.freemem = getFreeMem();
+  info.nproc = count_active_processes();
+
+  if (copyout(p->pagetable, (uint64)userinfo, (char *)&info, sizeof(info)) < 0)
+    return -1; // 从用户空间的userinfo到内核区域的info
+
   return 0;
 }
