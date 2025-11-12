@@ -91,3 +91,11 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_trace(void){
+  int bitcode;
+  argint(0,&bitcode);
+  myproc()->bitcode = bitcode;
+  return 0;
+}
