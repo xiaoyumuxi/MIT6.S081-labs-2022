@@ -224,7 +224,7 @@ proc_pagetable(struct proc *p)
   // 处理USYSCALL的映射关系
   // Map the usyscall page at USYSCALL.
   if (mappages(pagetable, USYSCALL, PGSIZE,
-               (uint64)p->usyscall, PTE_U | PTE_R ) < 0)
+               (uint64)p->usyscall, PTE_U | PTE_R) < 0)
   {
     // 如果映射失败，需要释放已分配资源（这里简化处理）
     uvmunmap(pagetable, TRAMPOLINE, 1, 0);
@@ -282,8 +282,8 @@ void userinit(void)
   p->cwd = namei("/");
 
   p->state = RUNNABLE;
-  printf("page table %p\n",p->pagetable);
-  vmprint(p->pagetable,0);
+  printf("page table %p\n", p->pagetable);
+  vmprint(p->pagetable, 0);
 
   release(&p->lock);
 }
@@ -729,4 +729,33 @@ void procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+int pgaccess(void *base, int len, void *mask)
+{
+  struct proc *p = myproc();
+  // 1.需要将内核里面的mask拷贝到用户区里面去，创建在内核里面的缓冲区暂存一下结果
+  uint64 mask_val = 0;
+  // 2.设置扫描页上限，64位mask code
+  if (len <= 0 || len > 64)
+    return -1;
+  for (int i = 0; i < 64; i++)
+  {
+    // 3.找到正确的PTE起始位置
+    uint64 va = (uint64)base + i * PGSIZE;
+    // 4.开始进行扫描PTE后面n页内PTE_A为1的页，将没有访问过的页对应的mask设置为0反之为1
+    pte_t *pte = walk(p->pagetable, va, 0); // 即使缺失也不需要进行分配
+    if (pte == 0) continue;// 页未映射，跳过（视为未访问）
+    if (*pte & PTE_A)
+    {
+      mask_val |= (1L << i); // 设置对应的mask码
+      *pte &= ~PTE_A;            // 清空对应的A位
+    }
+  }
+  // 5.写回到用户空间中的mask处去
+  if (copyout(p->pagetable, (uint64)mask, (char *)&mask_val, sizeof(mask_val)) < 0)
+  {
+    return -1;
+  }
+  // 5.返回0表示成功
+  return 0;
 }
