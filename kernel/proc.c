@@ -282,6 +282,8 @@ void userinit(void)
   p->cwd = namei("/");
 
   p->state = RUNNABLE;
+  printf("page table %p\n",p->pagetable);
+  vmprint(p->pagetable,0);
 
   release(&p->lock);
 }
