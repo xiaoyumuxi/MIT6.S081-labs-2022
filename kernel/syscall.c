@@ -101,6 +101,8 @@ extern uint64 sys_unlink(void);
 extern uint64 sys_link(void);
 extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
+extern uint64 sys_sigalarm(void);
+extern uint64 sys_sigreturn(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -126,6 +128,8 @@ static uint64 (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_sigalarm] sys_sigalarm,
+[SYS_sigreturn] sys_sigreturn,
 };
 
 void
@@ -144,4 +148,30 @@ syscall(void)
             p->pid, p->name, num);
     p->trapframe->a0 = -1;
   }
+}
+
+uint64
+sys_sigreturn(void){
+  struct proc* p = myproc();
+  if(p->alarmframe == 0)
+    return -1;
+  *p->trapframe = *p->alarmframe;//进行恢复
+  p->alarm_in_progress = 0;
+  return p->trapframe->a0;//返回值也要设回去
+}
+
+uint64
+sys_sigalarm(void){
+  int interval;
+  uint64 handler;
+  struct proc* p =myproc();
+  
+  argint(0,&interval);
+  argaddr(1,&handler);
+
+  p->interval = interval;
+  p->handler = handler;
+  p->pass_tick = 0; //重置过去的时间
+
+  return 0;
 }

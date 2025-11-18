@@ -104,4 +104,9 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  int interval;  //每一次间隔的时间
+  uint64 handler;//对应需要调用的函数指针的地址
+  int pass_tick; //已经过去的时间
+  struct trapframe *alarmframe;//时钟中断调用前的栈帧需要进行保存和恢复
+  int alarm_in_progress;//默认为0表示可以进行handler，非0表示不可以继续进行handler了
 };
