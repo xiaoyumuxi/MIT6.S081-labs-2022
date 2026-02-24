@@ -18,7 +18,7 @@ Current Progress: **Lab 0 - Lab 4 Completed**
 | **Lab 1** | **System Calls** | Added `trace` (syscall tracing) and `sysinfo` (system statistics) system calls. <br> 了解内核态与用户态边界、参数传递。 | ✅ |
 | **Lab 2** | **Page Tables** | Implemented custom page table mappings. Speed up syscalls and print page table structure. <br> 深入理解三级页表、虚拟内存映射机制。 | ✅ |
 | **Lab 3** | **Traps** | Handled assembly traps, backtrace, and periodic alerts (`sigalarm`). <br> 掌握 RISC-V 汇编、栈帧结构(Stack Frame)及中断处理流程。 | ✅ |
-| **Lab 4** | **Lazy Allocation** / **COW** | *(根据你的实际 Lab 4 主题修改此行)* Implemented Lazy Page Allocation / Copy-On-Write Fork. <br> 实现了内存懒加载 / 写时复制机制，优化内存使用。 | ✅ |
+| **Lab 4** | **Lazy Allocation** / **COW** | Implemented Lazy Page Allocation / Copy-On-Write Fork. <br> 实现了内存懒加载 / 写时复制机制，优化内存使用。 | ✅ |
 
 ## 🛠 Environment Setup (环境配置)
 
