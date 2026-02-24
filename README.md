@@ -13,17 +13,18 @@ This repository contains my solutions for the [MIT 6.S081: Operating System Engi
 Current Progress: **Lab 0 - Lab 4 Completed**
 
 | Lab | Topic | Description & Key Features | Status |
-| :--- | :--- | :--- | :---: |
-| **Lab 0** | **Unix Utilities** | Implemented user-space utilities (`sleep`, `pingpong`, `primes`, `find`, `xargs`) using system calls. <br> 熟悉系统调用接口、管道(pipes)和文件描述符。 | ✅ |
-| **Lab 1** | **System Calls** | Added `trace` (syscall tracing) and `sysinfo` (system statistics) system calls. <br> 了解内核态与用户态边界、参数传递。 | ✅ |
-| **Lab 2** | **Page Tables** | Implemented custom page table mappings. Speed up syscalls and print page table structure. <br> 深入理解三级页表、虚拟内存映射机制。 | ✅ |
-| **Lab 3** | **Traps** | Handled assembly traps, backtrace, and periodic alerts (`sigalarm`). <br> 掌握 RISC-V 汇编、栈帧结构(Stack Frame)及中断处理流程。 | ✅ |
-| **Lab 4** | **Lazy Allocation** / **COW** | Implemented Lazy Page Allocation / Copy-On-Write Fork. <br> 实现了内存懒加载 / 写时复制机制，优化内存使用。 | ✅ |
-|Lab 5|Multithreading,Implemented user-level threads and context switching.<br>探索用户级线程切换机制、并发与锁。|⬜|
-|Lab 6|Network Driver,Wrote a driver for the E1000 network interface card.<br>实现底层网卡驱动，处理 DMA、中断与网络协议栈。|⬜|
-|Lab 7|Locks,Optimized memory allocator and disk cache to reduce lock contention.<br>优化并发性能，降低内存分配与磁盘缓存的锁竞争。|⬜|
-|Lab 8|File System,Expanded the file system to support large files and symbolic links.<br>扩展文件系统以支持大文件(large files)和符号链接。|⬜|
-|Lab 9|Mmap,Implemented memory-mapped files functionality.<br>实现内存映射文件机制，处理缺页异常与磁盘 I/O 同步。|⬜|
+| :--- | :--- | :--- | :--- |
+| **Lab 1** | **Xv6 and Unix Utilities** | Implemented user-space utilities (`sleep`, `pingpong`, `primes`, `find`, `xargs`) using system calls.<br>熟悉系统调用接口、管道 (pipes) 和文件描述符。 | ✅ |
+| **Lab 2** | **System Calls** | Added `trace` (syscall tracing) and `sysinfo` (system statistics) system calls.<br>了解内核态与用户态边界、参数传递。 | ✅ |
+| **Lab 3** | **Page Tables** | Implemented custom page table mappings to speed up syscalls and print page table structure.<br>深入理解三级页表、虚拟内存映射机制。 | ✅ |
+| **Lab 4** | **Traps** | Handled assembly traps, backtrace, and periodic alerts (`sigalarm`).<br>掌握 RISC-V 汇编、栈帧结构 (Stack Frame) 及中断处理流程。 | ✅ |
+| **Lab 5** | **Copy-on-Write (COW)** | Implemented Lazy Page Allocation / Copy-On-Write Fork.<br>实现了内存懒加载 / 写时复制机制，优化内存使用。 | ✅ |
+| **Lab 6** | **Multithreading** | Implement user-level threads and context switching.<br>探索用户级线程切换机制、并发与锁。 | ⬜ |
+| **Lab 7** | **Network Driver** | Write a driver for the E1000 network interface card.<br>实现底层网卡驱动，处理 DMA、中断与网络协议栈。 | ⬜ |
+| **Lab 8** | **Locks** | Optimize memory allocator and disk cache to reduce lock contention.<br>优化并发性能，降低内存分配与磁盘缓存的锁竞争。 | ⬜ |
+| **Lab 9** | **File System** | Expand the file system to support large files and symbolic links.<br>扩展文件系统以支持大文件 (large files) 和符号链接。 | ⬜ |
+| **Lab 10** | **Mmap** | Implement memory-mapped files functionality.<br>实现内存映射文件机制，处理缺页异常与磁盘 I/O 同步。 | ⬜ |
+| **Lab 11** | **Network Stack (Optional)** | Implement a simple network stack (if applicable/extended).<br>（可选）实现简单的网络协议栈扩展。 | ⬜ |
 
 ## 🛠 Environment Setup (环境配置)
 
